@@ -1,2 +1,3 @@
 # required python libraries
-numpy, pytorch
+numpy
+pytorch
