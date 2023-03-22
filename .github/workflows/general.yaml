@@ -21,6 +21,9 @@ jobs:
 
     steps:
     
+    - name: Cache
+      uses: actions/cache@v2.1.8
+    
     - name: Auto commit effects of other workflows
-    - uses: stefanzweifel/git-auto-commit-action@v4
+      uses: stefanzweifel/git-auto-commit-action@v4
     
