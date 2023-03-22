@@ -1,0 +1,2 @@
+# required python libraries
+numpy, pytorch
