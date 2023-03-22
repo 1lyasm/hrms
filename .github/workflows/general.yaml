@@ -13,14 +13,20 @@ permissions:
   contents: write
 
 jobs:
+  python_tests:
+    uses: ./.github/workflows/python-app.yaml
+    
+  cmake_tests:
+    uses: ./.github/workflows/cmake.yaml
+    
   build:
+    needs: [python_tests, cmake_tests]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
-    
     - name: Cache
       uses: actions/cache@v2.1.8
     
