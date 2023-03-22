@@ -21,4 +21,6 @@ jobs:
 
     steps:
     
-        
+    - name: Auto commit effects of other workflows
+    - uses: stefanzweifel/git-auto-commit-action@v4
+    
