@@ -37,3 +37,7 @@ jobs:
     - name: Test with pytest
       run: |
         pytest --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+      
+    - name: Git Auto Commit
+    - uses: stefanzweifel/git-auto-commit-action@v4.16.0
+
