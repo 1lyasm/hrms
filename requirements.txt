@@ -1,4 +1,0 @@
-# required python libraries
-numpy
-pandas
-pytest-cov
