@@ -1,4 +1,4 @@
-from source.main import *
+from lib.main import *
 
 def test_main():
 	assert(main() == 0)
