@@ -1,0 +1,3 @@
+# Proje konusu, alt sistemleri, kullanilacak araclar ile ilgili 
+# notlar. Ilk hocaya atilacak mail icerigi ile ilgili.
+# Bu dosyasi sadece github arayuzunu kullanarak degistire bilirsiniz.
