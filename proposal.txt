@@ -1,3 +1,16 @@
 # Proje konusu, alt sistemleri, kullanilacak araclar ile ilgili 
 # notlar. Ilk hocaya atilacak mail icerigi ile ilgili.
 # Bu dosyasi sadece github arayuzunu kullanarak degistire bilirsiniz.
+
+Proje konusu (sistem): İnsan Kaynakları Yönetim Sistemi
+
+Alt sistemler:
+1. Çalışan bilgileri veritabanı - çalışanların tüm bilgileri tutulan merkezleşmiş veritabanı
+2. Otomatik dosya hazırlayan sistem - çalışan bilgilerini girdi olarak alıp isteğe göre başvuru, 
+  referans, bilgilendirme, maaş tablosu, güncel durumu ve ya mail mektup gibi text veya excel 
+  dosyalarını duruma göre otomatik oluşturup, gerekli yerlere gönderen bir sistem
+3. Çalışan kimlik doğrulama sistemi - yüz tanıma
+4. Veri görüntüleme arayüzü - çalışan verilerinden sistem arayüzünden interactive erişilebilen 
+  yıllık muhasebe tabloları ve istatistik bilgiler  
+5. Maaş yönetimi - şirketin ekonomik verilerinden ve çalışan verilerinden otomatik hesaplanan 
+  çalışan maaşları
