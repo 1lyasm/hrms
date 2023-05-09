@@ -26,3 +26,20 @@ class DFAugmenter:
                 UpdatedDF[Column] = DFAugmenter.TypeNullVal[Type]
             UpdatedDF[Column] = UpdatedDF[Column].astype(Type)
         return UpdatedDF
+
+class ExcelIO:
+    @staticmethod
+    def readDF(FileName):
+        return pd.read_excel(FileName)
+
+    @staticmethod
+    def writeDF(FileName, DF):
+        DF.to_excel(FileName, index=False)
+
+
+def isAnyNullType(Obj):
+    NullTypes = [pd.NA, np.nan, pd.NaT, None]
+    for Type in NullTypes:
+        if Obj is Type:
+            return True
+    return False

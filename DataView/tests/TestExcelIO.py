@@ -1,7 +1,6 @@
 import sys
 sys.path.append("..")
-from util.ExcelIO import ExcelIO
-from util.DFAugmenter import DFAugmenter
+from DataView import ExcelIO, DFAugmenter
 
 # MODIFIES THE EXCEL FILE
 

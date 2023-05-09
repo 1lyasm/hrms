@@ -1,8 +1,7 @@
 import pandas as pd
 import sys
 sys.path.append("..")
-from util.DFAugmenter import DFAugmenter
-from util.ExcelIO import ExcelIO
+from DataView import DFAugmenter, ExcelIO
 
 
 def main():
