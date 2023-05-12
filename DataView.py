@@ -1,3 +1,4 @@
+from PIL import Image
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -59,6 +60,7 @@ def run(FileName):
         plt.legend()
         plt.savefig("views/gender_barchart.jpg")
     
+
     def gen_age_groups_barchart():
         pass
 
@@ -96,21 +98,26 @@ def run(FileName):
             gen_education_barchar
             ]
     
-    # generate
-    for gen in generators:
-        gen()
-    
     # generate views dir and files
     try:
         os.mkdir("views")
     except FileExistsError: pass
+
+    # generate
+    for gen in generators:
+        gen()
+    
 
     # show all views
     print("Views: ")
     for view in views:
         print(f"\t{view}")
     
-    df.to_excel(FileName, index=False)
+    try:
+        df.to_excel(FileName, index=False)
+    except PermissionError:
+        print(f"{FileName} is open in another program")
+        exit()
     
     # take input until exits
     while (True):
@@ -131,9 +138,11 @@ Commands:
                 print("show requires parameter")
             else:
                 file_name = inp.split()[1]
-                print(file_name)
-                if not file_name in views:
+                if file_name in views:
                     print("View does not exist")
+                else:
+                    pass
+
         elif inp == "q":
             return
         else:
