@@ -14,10 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: yapf-format
-      run:
-        sudo apt install yapf
-        yapf -i DataView.py
-      
+      run: sudo apt install yapf && yapf -i DataView.py
+
+
+
     - name: Commit and push changes
       run: |
         git config --global user.name "1lyasm"
