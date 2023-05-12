@@ -30,17 +30,13 @@ def augmentDF(DF):
 def is_any_null_type(obj):
     null_types = [pd.NA, np.nan, pd.NaT, None]
     for type in null_types:
-        if obj is type:
-            return True
+        if obj is type: return True
     return False
 
 
 def run(FileName):
-    # init DF
     df = pd.read_excel(FileName)
     df = augmentDF(df)
-
-    # constants
     views = ["gender_barchart",
             "age_groups_barchart", 
             "marital_status_barchart",
@@ -49,15 +45,16 @@ def run(FileName):
             "driver_license_barchart", 
             "salary_barchart",
             "education_barchart"
-            ]
-    
-    # generator function
+    ]
+
+
     def gen_gender_barchart():
         x_axis = ["M", "F"]
         height = df["Gender"].value_counts()
         plt.bar(x_axis, height=height, label="Gender")
         plt.legend()
         plt.savefig("views/gender_barchart.jpg")
+
     
     def gen_age_groups_barchart():
         pass
@@ -86,6 +83,7 @@ def run(FileName):
     def gen_education_barchar():
         pass
 
+
     generators = [gen_gender_barchart,
             gen_age_groups_barchart, 
             gen_marital_status_barchart,
@@ -94,37 +92,29 @@ def run(FileName):
             gen_driver_license_barchart, 
             gen_salary_barchart,
             gen_education_barchar
-            ]
-    
-    # generate
-    for gen in generators:
-        gen()
-    
-    # generate views dir and files
+    ]
+    for gen in generators: gen()
     try:
         os.mkdir("views")
-    except FileExistsError: pass
-
-    # show all views
+    except FileExistsError:
+        pass
     print("Views: ")
-    for view in views:
-        print(f"\t{view}")
-    
+    for view in views: print(f"\t{view}")
     df.to_excel(FileName, index=False)
-    
-    # take input until exits
-    while (True):
+    help_text = """
+Commands: 
+    help: Display this page
+    show [file_name]: Display file_name view
+    q: Return to main menu
+    """
+
+     while (True):
         try:
             inp = input("> ")
         except KeyboardInterrupt:
             return
         if inp == "help":
-            print("""
-Commands: 
-    help: Display this page
-    show [file_name]: Display file_name view
-    q: Return to main menu
-            """)
+            print(help_text)
         elif inp == "": pass
         elif inp.split()[0] == "show":
             if len(inp.split()) == 1:
