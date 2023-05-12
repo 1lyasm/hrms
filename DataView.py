@@ -115,7 +115,8 @@ Commands:
             return
         if inp == "help":
             print(help_text)
-        elif inp == "": pass
+        elif inp == "":
+            pass
         elif inp.split()[0] == "show":
             if len(inp.split()) == 1:
                 print("show requires parameter")
