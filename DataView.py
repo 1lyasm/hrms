@@ -108,7 +108,7 @@ Commands:
     q: Return to main menu
     """
 
-     while (True):
+    while (True):
         try:
             inp = input("> ")
         except KeyboardInterrupt:
