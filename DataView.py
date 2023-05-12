@@ -6,18 +6,28 @@ import os
 
 
 def augmentDF(DF):
-    columns_types = {"Name": "object", "Surname": "object", "Gender": "object", "Role": "object",
-                    "Salary": "float64", "Age": "Int64",
-                    "Education": "object", "Distance": "Int64",
-                    "Remote": "boolean", "Marital status": "object",
-                    "Smoking": "boolean", "Driver license": "boolean",
-                    "Language skills": "object", "Employed at": "datetime64[ns]"}
+    columns_types = {
+        "Name": "object",
+        "Surname": "object",
+        "Gender": "object",
+        "Role": "object",
+        "Salary": "float64",
+        "Age": "Int64",
+        "Education": "object",
+        "Distance": "Int64",
+        "Remote": "boolean",
+        "Marital status": "object",
+        "Smoking": "boolean",
+        "Driver license": "boolean",
+        "Language skills": "object",
+        "Employed at": "datetime64[ns]"
+    }
     type_null_val = {
-    "Int64": pd.NA,
-    "float64": np.nan,
-    "boolean": np.nan,
-    "datetime64[ns]": pd.NaT,
-    "object": np.nan
+        "Int64": pd.NA,
+        "float64": np.nan,
+        "boolean": np.nan,
+        "datetime64[ns]": pd.NaT,
+        "object": np.nan
     }
     prev_cols = DF.columns
     updated_df = DF
@@ -31,28 +41,20 @@ def augmentDF(DF):
 def is_any_null_type(obj):
     null_types = [pd.NA, np.nan, pd.NaT, None]
     for type in null_types:
-        if obj is type:
-            return True
+        if obj is type: return True
     return False
 
 
 def run(FileName):
-    # init DF
     df = pd.read_excel(FileName)
     df = augmentDF(df)
+    views = [
+        "gender_barchart", "age_groups_barchart", "marital_status_barchart",
+        "smoking_habit_barchart", "onsite_remote_barchart",
+        "driver_license_barchart", "salary_barchart", "education_barchart"
+    ]
 
-    # constants
-    views = ["gender_barchart",
-            "age_groups_barchart", 
-            "marital_status_barchart",
-            "smoking_habit_barchart",
-            "onsite_remote_barchart",
-            "driver_license_barchart", 
-            "salary_barchart",
-            "education_barchart"
-            ]
-    
-    # generator function
+
     def gen_gender_barchart():
         x_axis = ["M", "F"]
         height = df["Gender"].value_counts()
@@ -64,26 +66,20 @@ def run(FileName):
     def gen_age_groups_barchart():
         pass
 
-
     def gen_marital_status_barchart():
         pass
-
 
     def gen_smoking_habit_barchart():
         pass
 
-
     def gen_onsite_remote_barchart():
         pass
-
 
     def gen_driver_license_barchart():
         pass
 
-
     def gen_salary_barchart():
         pass
-
 
     def gen_education_barchar():
         pass
@@ -97,42 +93,34 @@ def run(FileName):
             gen_salary_barchart,
             gen_education_barchar
             ]
-    
-    # generate views dir and files
     try:
         os.mkdir("views")
     except FileExistsError: pass
-
-    # generate
     for gen in generators:
         gen()
-    
-
-    # show all views
     print("Views: ")
     for view in views:
         print(f"\t{view}")
-    
     try:
         df.to_excel(FileName, index=False)
     except PermissionError:
         print(f"{FileName} is open in another program")
         exit()
-    
-    # take input until exits
+    help_text = """
+Commands: 
+    help: Display this page
+    show [file_name]: Display file_name view
+    q: Return to main menu
+    """
     while (True):
         try:
             inp = input("> ")
         except KeyboardInterrupt:
             return
         if inp == "help":
-            print("""
-Commands: 
-    help: Display this page
-    show [file_name]: Display file_name view
-    q: Return to main menu
-            """)
-        elif inp == "": pass
+            print(help_text)
+        elif inp == "":
+            pass
         elif inp.split()[0] == "show":
             if len(inp.split()) == 1:
                 print("show requires parameter")
@@ -142,7 +130,6 @@ Commands:
                     print("View does not exist")
                 else:
                     pass
-
         elif inp == "q":
             return
         else:
