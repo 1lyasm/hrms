@@ -54,14 +54,12 @@ def run(FileName):
         "driver_license_barchart", "salary_barchart", "education_barchart"
     ]
 
-
     def gen_gender_barchart():
         x_axis = ["M", "F"]
         height = df["Gender"].value_counts()
         plt.bar(x_axis, height=height, label="Gender")
         plt.legend()
         plt.savefig("views/gender_barchart.jpg")
-    
 
     def gen_age_groups_barchart():
         pass
@@ -84,18 +82,16 @@ def run(FileName):
     def gen_education_barchar():
         pass
 
-    generators = [gen_gender_barchart,
-            gen_age_groups_barchart, 
-            gen_marital_status_barchart,
-            gen_smoking_habit_barchart,
-            gen_onsite_remote_barchart,
-            gen_driver_license_barchart, 
-            gen_salary_barchart,
-            gen_education_barchar
-            ]
+    generators = [
+        gen_gender_barchart, gen_age_groups_barchart,
+        gen_marital_status_barchart, gen_smoking_habit_barchart,
+        gen_onsite_remote_barchart, gen_driver_license_barchart,
+        gen_salary_barchart, gen_education_barchar
+    ]
     try:
         os.mkdir("views")
-    except FileExistsError: pass
+    except FileExistsError:
+        pass
     for gen in generators:
         gen()
     print("Views: ")
