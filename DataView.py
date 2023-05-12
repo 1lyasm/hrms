@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 import os
 
 
@@ -52,9 +53,12 @@ def run(FileName):
     
     # generator function
     def gen_gender_barchart():
-        pass
+        x_axis = ["M", "F"]
+        height = df["Gender"].value_counts()
+        plt.bar(x_axis, height=height, label="Gender")
+        plt.legend()
+        plt.savefig("views/gender_barchart.jpg")
     
-
     def gen_age_groups_barchart():
         pass
 
@@ -92,14 +96,14 @@ def run(FileName):
             gen_education_barchar
             ]
     
+    # generate
+    for gen in generators:
+        gen()
+    
     # generate views dir and files
     try:
         os.mkdir("views")
     except FileExistsError: pass
-    for view in views:
-        try:
-            open(f"views/{view}.png", "x")
-        except FileExistsError: pass
 
     # show all views
     print("Views: ")
@@ -121,6 +125,7 @@ Commands:
     show [file_name]: Display file_name view
     q: Return to main menu
             """)
+        elif inp == "": pass
         elif inp.split()[0] == "show":
             if len(inp.split()) == 1:
                 print("show requires parameter")
@@ -141,4 +146,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
