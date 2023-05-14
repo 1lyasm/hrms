@@ -46,7 +46,7 @@ def is_any_null_type(obj):
 
 
 def run(file_name):
-    try: 
+    try:
         df = pd.read_excel(file_name)
     except FileNotFoundError:
         print(f"File not found: {file_name}")
@@ -59,6 +59,7 @@ def run(file_name):
     ]
     image_ext = "jpg"
     bar_colors = ["red", "blue", "cyan"]
+
     def gen_gender_barchart():
         x_axis = ["M", "F", "NaN"]
         height = df["Gender"].replace(np.nan, "NaN") \
@@ -69,10 +70,13 @@ def run(file_name):
         plt.title("Gender distribution")
 
     def gen_age_groups_barchart():
-        age_groups = pd.cut(df["Age"], bins=[0, 18, 30, 50, float("inf")], labels=["0-18", "19-30", "31-50", "51+"])
+        age_groups = pd.cut(df["Age"],
+                            bins=[0, 18, 30, 50, float("inf")],
+                            labels=["0-18", "19-30", "31-50", "51+"])
         height = age_groups.value_counts().sort_index()
-        colors = ["blue", "green", "orange", "red"]  # Define colors for each age group
-        
+        colors = ["blue", "green", "orange",
+                  "red"]  # Define colors for each age group
+
         height.plot(kind="bar", color=colors)
         plt.xlabel("Age Groups")
         plt.ylabel("Count")
