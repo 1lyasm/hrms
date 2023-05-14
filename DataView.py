@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import os
 
 
-def augmentDF(DF):
+def augment_df(DF):
     columns_types = {
         "Name": "object",
         "Surname": "object",
@@ -45,24 +45,39 @@ def is_any_null_type(obj):
     return False
 
 
-def run(FileName):
-    df = pd.read_excel(FileName)
-    df = augmentDF(df)
+def run(file_name):
+    try: 
+        df = pd.read_excel(file_name)
+    except FileNotFoundError:
+        print(f"File not found: {file_name}")
+        exit()
+    df = augment_df(df)
     views = [
         "gender_barchart", "age_groups_barchart", "marital_status_barchart",
         "smoking_habit_barchart", "onsite_remote_barchart",
         "driver_license_barchart", "salary_barchart", "education_barchart"
     ]
-
+    image_ext = "jpg"
+    bar_colors = ["red", "blue", "cyan"]
     def gen_gender_barchart():
-        x_axis = ["M", "F"]
-        height = df["Gender"].value_counts()
-        plt.bar(x_axis, height=height, label="Gender")
-        plt.legend()
-        plt.savefig("views/gender_barchart.jpg")
+        x_axis = ["M", "F", "NaN"]
+        height = df["Gender"].replace(np.nan, "NaN") \
+            .value_counts().reindex(x_axis, fill_value=0)
+        height.plot(kind="bar", color=bar_colors)
+        plt.xlabel("Gender")
+        plt.ylabel("Count")
+        plt.title("Gender distribution")
 
     def gen_age_groups_barchart():
-        pass
+        age_groups = pd.cut(df["Age"], bins=[0, 18, 30, 50, float("inf")], labels=["0-18", "19-30", "31-50", "51+"])
+        height = age_groups.value_counts().sort_index()
+        colors = ["blue", "green", "orange", "red"]  # Define colors for each age group
+        
+        height.plot(kind="bar", color=colors)
+        plt.xlabel("Age Groups")
+        plt.ylabel("Count")
+        plt.title("Age Groups Distribution")
+        plt.savefig(f"views/age_groups_barchart.{image_ext}")
 
     def gen_marital_status_barchart():
         pass
@@ -94,13 +109,14 @@ def run(FileName):
         pass
     for gen in generators:
         gen()
+        plt.savefig(f"views/{gen.__name__[4:]}.{image_ext}")
     print("Views: ")
     for view in views:
         print(f"\t{view}")
     try:
-        df.to_excel(FileName, index=False)
+        df.to_excel(file_name, index=False)
     except PermissionError:
-        print(f"{FileName} is open in another program")
+        print(f"{file_name} is open in another program")
         exit()
     help_text = """
 Commands: 
@@ -123,9 +139,9 @@ Commands:
             else:
                 file_name = inp.split()[1]
                 if file_name in views:
-                    print("View does not exist")
+                    Image.open(f"views/{file_name}.{image_ext}").show()
                 else:
-                    pass
+                    print("View does not exist")
         elif inp == "q":
             return
         else:
@@ -133,7 +149,7 @@ Commands:
 
 
 def main():
-    run("EmployeesNew.xlsx")
+    run("employees_new.xlsx")
 
 
 if __name__ == "__main__":
