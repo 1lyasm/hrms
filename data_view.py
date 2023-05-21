@@ -5,39 +5,6 @@ import matplotlib.pyplot as plt
 import os
 
 
-def augment_df(DF):
-    columns_types = {
-        "Name": "object",
-        "Surname": "object",
-        "Gender": "object",
-        "Role": "object",
-        "Salary": "float64",
-        "Age": "Int64",
-        "Education": "object",
-        "Distance": "Int64",
-        "Remote": "boolean",
-        "Marital status": "object",
-        "Smoking": "boolean",
-        "Driver license": "boolean",
-        "Language skills": "object",
-        "Employed at": "datetime64[ns]"
-    }
-    type_null_val = {
-        "Int64": pd.NA,
-        "float64": np.nan,
-        "boolean": np.nan,
-        "datetime64[ns]": pd.NaT,
-        "object": np.nan
-    }
-    prev_cols = DF.columns
-    updated_df = DF
-    for column, type in columns_types.items():
-        if not column in prev_cols:
-            updated_df[column] = type_null_val[type]
-        updated_df[column] = updated_df[column].astype(type)
-    return updated_df
-
-
 def is_any_null_type(obj):
     null_types = [pd.NA, np.nan, pd.NaT, None]
     for type in null_types:
@@ -45,13 +12,7 @@ def is_any_null_type(obj):
     return False
 
 
-def run(file_name):
-    try:
-        df = pd.read_excel(file_name)
-    except FileNotFoundError:
-        print(f"File not found: {file_name}")
-        exit()
-    df = augment_df(df)
+def show(df):
     views = [
         "gender_barchart", "age_groups_barchart", "marital_status_barchart",
         "smoking_habit_barchart", "onsite_remote_barchart",
@@ -75,7 +36,7 @@ def run(file_name):
                             labels=["0-18", "19-30", "31-50", "51+"])
         height = age_groups.value_counts().sort_index()
         colors = ["blue", "green", "orange",
-                  "red"]  # Define colors for each age group
+                  "red"]
 
         height.plot(kind="bar", color=colors)
         plt.xlabel("Age Groups")
@@ -117,11 +78,6 @@ def run(file_name):
     print("Views: ")
     for view in views:
         print(f"\t{view}")
-    try:
-        df.to_excel(file_name, index=False)
-    except PermissionError:
-        print(f"{file_name} is open in another program")
-        exit()
     help_text = """
 Commands: 
     help: Display this page
@@ -151,10 +107,3 @@ Commands:
         else:
             print("Invalid command")
 
-
-def main():
-    run("employees_new.xlsx")
-
-
-if __name__ == "__main__":
-    main()
