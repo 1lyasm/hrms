@@ -1,7 +1,9 @@
 import pandas as pd
 import numpy as np
+import os
 
 import filter_add
+import face_recog.recognizer as recog
 
 
 def main():
@@ -12,23 +14,21 @@ def main():
 \t2. Data view and addition
 \t3. Document generation
 \t4. Salary management
-\t5. Exit
-          """)
+\t5. Exit""")
     df = pd.read_excel("svatprj.xlsx")
-    inp = int(input("Choice: "));
-    print("")
-    if inp == 1:
-        pass
-    elif inp == 2:
-        filter_add.show(df)
-    elif inp == 3:
-        pass
-    elif inp == 4:
-        pass
-    elif inp == 5:
-        exit()
-    else:
-        print("Thank you.")
+    while 1: 
+        inp = int(input("\nChoice: "));
+        print("")
+        if inp == 1:
+            recog.show()
+        elif inp == 2:
+            filter_add.show(df)
+        elif inp == 3:
+            pass
+        elif inp == 4:
+            pass
+        else: 
+            exit()
 
 if __name__ == "__main__":
     main()

@@ -107,8 +107,8 @@ def usercho(choice, df, page, rows, df1):
             page.cell(row=rows+1, column = 13, value = gover)
             page.cell(row=rows+1, column = 14, value = final)
             df1.save("svatprj.xlsx")
-        case default:
-            return "Thank you."
+        case default: 
+            exit()
 
             
 if __name__ == "__main__":

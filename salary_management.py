@@ -2,7 +2,6 @@ class SalaryManagementSystem:
     def __init__(self, budget, tax_rate):
         self.budget = budget
         self.tax_rate = tax_rate
-        # self.employees = []
 
     def calculate_net_salary(self, employee):
         tax = employee.salary * self.tax_rate
