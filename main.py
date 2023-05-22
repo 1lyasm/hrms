@@ -4,6 +4,7 @@ import os
 
 import filter_add
 import face_recog.recognizer as recog
+import doc_gen
 
 
 def main():
@@ -13,8 +14,7 @@ def main():
 \t1. Face recognition
 \t2. Data view and addition
 \t3. Document generation
-\t4. Salary management
-\t5. Exit""")
+\t*. Exit""")
     df = pd.read_excel("svatprj.xlsx")
     while 1: 
         inp = int(input("\nChoice: "));
@@ -24,9 +24,7 @@ def main():
         elif inp == 2:
             filter_add.show(df)
         elif inp == 3:
-            pass
-        elif inp == 4:
-            pass
+            doc_gen.show(df)
         else: 
             exit()
 

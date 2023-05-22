@@ -8,7 +8,7 @@ def show(df):
     page = df1["sss"]
     rows = page.max_row
 
-    print("Show:\n\t1. Department\n\t2. Job\n\t3. Gender\n\t4. Work Day\n\t5. Total Salary\n\t6. Monthly Salary\n\t7. Final Salary\n\t8. Add new\n\tAny. Exit")
+    print("Show:\n\t1. Department\n\t2. Job\n\t3. Gender\n\t4. Work Day\n\t5. Total Salary\n\t6. Monthly Salary\n\t7. Final Salary\n\t8. Add new\n\t*. Exit")
     choice = input("\nPlease Choose: ")
     if not data_view.run_df_gui(usercho(choice, df, page, rows, df1)):
         print("Added new employee")
